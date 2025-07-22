@@ -64,7 +64,8 @@ h1 {
 .quadrado-jogo {
     width: 175px;
     height: 175px;
-    background-color: rgb(143, 49, 231);
+    cursor: pointer;
+    background-image:linear-gradient(to bottom right, grey, rgb(214, 214, 214));
     border-radius: 10px;
     border-style: solid;
     border-color: black;
@@ -73,6 +74,8 @@ h1 {
 button {
     font-size: 18pt;
     padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .botao-placar {
