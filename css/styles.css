@@ -5,10 +5,9 @@
     font-family: 'Tahoma', sans-serif;
 }
 
-/* No fim do código, ver se isso funciona */
 html {
     width: 100%;
-    height: 100%;
+    height: 110%;
 }
 
 header {
@@ -60,7 +59,7 @@ h1 {
     grid-template-columns: repeat(3, 175px);
     gap: 25px;
     justify-content: center;
-    padding: 25px;
+    padding-top: 75px;
 }
 
 .quadrado-jogo {
@@ -78,10 +77,6 @@ button {
     border-radius: 10px;
     border-style: outset;
     cursor: pointer;
-}
-
-#botao-placar {
-    padding-bottom: 50px;
 }
 
 /* macete pra colocar borda no texto */

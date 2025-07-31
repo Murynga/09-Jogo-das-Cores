@@ -1,5 +1,7 @@
-const jogador = "";
 const corAtual = document.getElementById("cor-atual");
+const tempoRestante = document.getElementById("tempo-restante"); 
+const botaoJogar = document.getElementById("botao-jogar"); 
+const pontuacao = document.getElementById("pontuacao");
 const quadrado1 = document.getElementById("quadrado1");
 const quadrado2 = document.getElementById("quadrado2");
 const quadrado3 = document.getElementById("quadrado3");
@@ -13,12 +15,17 @@ const quadrados = [quadrado1, quadrado2, quadrado3,
                 quadrado4, quadrado5, quadrado6, 
                 quadrado7, quadrado8, quadrado9];
 let resposta = "";
+let tempoTotal = 15; // segundos
+let intervalo;
 
 
 function jogar() {
-    // iniciar contagem de tempo
-    // zerar pontuação
-    // desativar o botão jogar
+    
+    iniciaTempo();
+    let pontos = 0;
+    pontuacao.innerHTML = pontos;
+    botaoJogar.disabled = true;
+
 
     aleatorizaCores();
 
@@ -26,10 +33,13 @@ function jogar() {
     for(let quadrado of quadrados) {
         quadrado.addEventListener("click", function() {
             if (resposta === quadrado.style.backgroundColor) {
-                // aumentar a pontuação
+                pontos += 10;
+                pontuacao.innerHTML = pontos;
                 aleatorizaCores();
+
             } else {
-                // diminuir a pontuação
+                pontos -= 5;
+                pontuacao.innerHTML = pontos;
                 aleatorizaCores();
             }
         })
@@ -41,15 +51,9 @@ function jogar() {
 function aleatorizaCores() {
         
     // aleatoriza as cores
-    let cores = ["green", 
-                "red", 
-                "blue", 
-                "magenta", 
-                "yellow", 
-                "purple", 
-                "cyan", 
-                "orange", 
-                "black",];
+    let cores = ["green", "red", "blue", 
+                "magenta", "yellow", "purple", 
+                "cyan", "orange", "black"];
     let possivelResposta = [];
     let quadradoAtual;
 
@@ -118,6 +122,26 @@ function aleatorizaCores() {
     }
 }
 
+function iniciaTempo() {
+    tempoTotal = 15;
+    tempoRestante.innerHTML = `${tempoTotal}s`;
+    intervalo = setInterval(atualizaTempo, 1000);
+}
+
+function atualizaTempo() {
+    tempoTotal--;
+    tempoRestante.innerHTML = `${tempoTotal}s`;
+
+    if (tempoTotal <= 0) {
+        clearInterval(intervalo);
+        tempoRestante.innerHTML = "0s";
+
+        // exemplo: reativar o botão
+        document.getElementById("botao-jogar").disabled = false;
+
+        // aqui pode colocar lógica de fim de jogo, salvar no placar etc.
+    }
+}
 
 // trocar isso tudo depois
 function placar() {
