@@ -63,7 +63,6 @@ function jogar() {
 
 function aleatorizaCores() {
         
-    // aleatoriza as cores
     let cores = ["green", "red", "blue", 
                 "magenta", "yellow", "purple", 
                 "cyan", "orange", "black"];
@@ -142,14 +141,16 @@ function iniciaTempo() {
 }
 
 function atualizaTempo() {
+    // faz o temporizador funcionar
     tempoTotal--;
     tempoRestante.innerHTML = `${tempoTotal}s`;
 
     if (tempoTotal <= 0) {
         clearInterval(intervalo);
-        window.alert(`Fim de jogo!\n
-Jogador: ${jogadorNome}
-pontuação: ${pontos}`);
+        window.alert(`Fim de jogo!\n\n` +
+                    `Jogador: ${jogadorNome}\n` +
+                    `pontuação: ${pontos}`);
+        atualizaPlacar(jogadorNome, pontos);
         resetaJogo();
         
     }
@@ -171,15 +172,56 @@ function resetaJogo() {
 
 }
 
-function placar() {
-    // tentar fazer um 'alert' personalizado, com o placar salvo dentro
+function atualizaPlacar(nome, pontos) {
+    let jogadorAtual = {
+        nome: nome,
+        pontos: pontos
+    }
+    let todoPlacar = localStorage.getItem("placar");
+    let placar;
+
+    if (todoPlacar) {
+        placar = JSON.parse(todoPlacar);
+    } else {
+        placar = [];
+    }
+
+    placar.push(jogadorAtual);
+    placar.sort((a, b) => b.pontos - a.pontos);
+
+    let novoPlacar = JSON.stringify(placar, null, 2);
+
+    localStorage.setItem("placar", novoPlacar);
+}
+
+function mostraPlacar() {
+    let todoPlacar = localStorage.getItem("placar");
+    let placar;
+
+    if (todoPlacar) {
+        placar = JSON.parse(todoPlacar);
+    } else {
+        window.confirm("Ainda não há entradas no placar.\nSeja o primeiro!");
+        return;
+    }
+
+    let alertaPlacar = "Placar de Líderes:\n\n";
+    placar.forEach((jogadorAtual, posicao) => {
+    
+            alertaPlacar +=`${posicao + 1}º Lugar:\n\n` +
+                        `Nome: ${jogadorAtual.nome};\n` +
+                        `Pontuação: ${jogadorAtual.pontos}\n\n`;
+        });
+
+    window.alert(alertaPlacar);
+    
 }
 
 //fazer a logo girar ao clicar
 function rodar() {
     let logo = document.getElementById("logo");
 
-    //aiciona a classe de rotação
+    //aciona a classe de rotação
     logo.classList.add("rotacao");
 
     //remove a classe quando para de rodar
