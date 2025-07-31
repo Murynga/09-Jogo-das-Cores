@@ -1,7 +1,8 @@
 const corAtual = document.getElementById("cor-atual");
+const jogador = document.getElementById("jogador");
+const pontuacao = document.getElementById("pontuacao");
 const tempoRestante = document.getElementById("tempo-restante"); 
 const botaoJogar = document.getElementById("botao-jogar"); 
-const pontuacao = document.getElementById("pontuacao");
 const quadrado1 = document.getElementById("quadrado1");
 const quadrado2 = document.getElementById("quadrado2");
 const quadrado3 = document.getElementById("quadrado3");
@@ -14,24 +15,36 @@ const quadrado9 = document.getElementById("quadrado9");
 const quadrados = [quadrado1, quadrado2, quadrado3, 
                 quadrado4, quadrado5, quadrado6, 
                 quadrado7, quadrado8, quadrado9];
+let emJogo = true;
 let resposta = "";
-let tempoTotal = 15; // segundos
+let jogadorNome = null;
+let pontos = 0;
+let tempoTotal = 15;
 let intervalo;
 
 
 function jogar() {
-    
-    iniciaTempo();
-    let pontos = 0;
+    jogadorNome = window.prompt("Digite seu nome: ");
+    if (jogadorNome == null || jogadorNome == "")
+        return;
+
+    emJogo = true;
+    jogador.innerHTML = jogadorNome;
+    pontos = 0;
     pontuacao.innerHTML = pontos;
     botaoJogar.disabled = true;
-
-
+    
+    
+    
+    iniciaTempo();
     aleatorizaCores();
 
     // checa se acertou ou errou, altera a pontuação e aleatoriza de novo
     for(let quadrado of quadrados) {
         quadrado.addEventListener("click", function() {
+            if (emJogo == false)
+                return;
+
             if (resposta === quadrado.style.backgroundColor) {
                 pontos += 10;
                 pontuacao.innerHTML = pontos;
@@ -134,18 +147,32 @@ function atualizaTempo() {
 
     if (tempoTotal <= 0) {
         clearInterval(intervalo);
-        tempoRestante.innerHTML = "0s";
-
-        // exemplo: reativar o botão
-        document.getElementById("botao-jogar").disabled = false;
-
-        // aqui pode colocar lógica de fim de jogo, salvar no placar etc.
+        window.alert(`Fim de jogo!\n
+Jogador: ${jogadorNome}
+pontuação: ${pontos}`);
+        resetaJogo();
+        
     }
 }
 
-// trocar isso tudo depois
+// volta o jogo para o padrão ao acabar a partida atual
+function resetaJogo() {
+    for(let quadrado of quadrados) {
+        quadrado.style.backgroundColor = "grey";
+    }
+    tempoRestante.innerHTML = "0s";
+    botaoJogar.disabled = false;
+    emJogo = false;
+    jogador.innerHTML = "---";
+    pontuacao.innerHTML = "---";
+    tempoRestante.innerHTML = "---";
+    corAtual.innerHTML = "---";
+    corAtual.style.color = "black";
+
+}
+
 function placar() {
-    window.alert("Carlos\n\n 1º Lugar\n\"O mais brabo\""); // Não vai dar certo fazer isso :/
+    // tentar fazer um 'alert' personalizado, com o placar salvo dentro
 }
 
 //fazer a logo girar ao clicar
