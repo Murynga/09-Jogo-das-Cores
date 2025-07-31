@@ -1,85 +1,132 @@
-
-
-/* Anotações
-
-- é bom definir o botão de jogar pra começar uma função chamada jogar() pra organização,
-  o mesmo pra placar();
-- comentar o código, se der tempo;
-- 
-
-*/
-
-let jogador = "";
-let quadrado1 = document.querySelector(".quadrado1");
-let quadrado2 = document.querySelector(".quadrado2");
-let quadrado3 = document.querySelector(".quadrado3");
-let quadrado4 = document.querySelector(".quadrado4");
-let quadrado5 = document.querySelector(".quadrado5");
-let quadrado6 = document.querySelector(".quadrado6");
-let quadrado7 = document.querySelector(".quadrado7");
-let quadrado8 = document.querySelector(".quadrado8");
-let quadrado9 = document.querySelector(".quadrado9");
-
-
-
-
-/** Tentativa de estruturação do jogo:
- * jogador clica em jogar e digita o nome
- * pontuação vira 0
- * se escolhe qual a cor a ser clicada (corAtual)
- * randomiza a cor de todos os quadrados, e as atribui aos mesmos
- * 
- * 
- */
-
+const jogador = "";
+const corAtual = document.getElementById("cor-atual");
+const quadrado1 = document.getElementById("quadrado1");
+const quadrado2 = document.getElementById("quadrado2");
+const quadrado3 = document.getElementById("quadrado3");
+const quadrado4 = document.getElementById("quadrado4");
+const quadrado5 = document.getElementById("quadrado5");
+const quadrado6 = document.getElementById("quadrado6");
+const quadrado7 = document.getElementById("quadrado7");
+const quadrado8 = document.getElementById("quadrado8");
+const quadrado9 = document.getElementById("quadrado9");
+const quadrados = [quadrado1, quadrado2, quadrado3, 
+                quadrado4, quadrado5, quadrado6, 
+                quadrado7, quadrado8, quadrado9];
+let resposta = "";
 
 
 function jogar() {
-    let pontuacao = 0;
-    let pontuacaoEl = document.querySelector(".pontuacao");
-    
-    /*jogador = window.prompt("Qual é o seu nome?");
-    
-    if (jogador == null || jogador == "")
-        return;
-*/
-    pontuacaoEl.innerHTML = "<p><strong>Pontuação: " + pontuacao + "</strong></p>";
+    // iniciar contagem de tempo
+    // zerar pontuação
+    // desativar o botão jogar
 
-    let corAtual = Math.round(Math.random() * 5); // rodar isso no começo da rodada
-    window.alert(corAtual);
+    aleatorizaCores();
 
-    switch(corAtual) { // talvez jogar isso pra aleatorizaCor() 
-        case 0:
-            quadrado1.style.backgroundImage = "linear-gradient(to bottom right, green, rgb(214, 214, 214))";
-            break;
-
-        case 1:
-            quadrado2.style.backgroundImage = "linear-gradient(to bottom right, blue, rgb(214, 214, 214))";
-            break;
-
-        case 2:
-            quadrado3.style.backgroundImage = "linear-gradient(to bottom right, red, rgb(214, 214, 214))";
-            break;
-
-        case 3:
-            quadrado4.style.backgroundImage = "linear-gradient(to bottom right, magenta, rgb(214, 214, 214))";
-            break;
-
-        case 4:
-            quadrado5.style.backgroundImage = "linear-gradient(to bottom right, yellow, rgb(214, 214, 214))";
-            break;
+    // checa se acertou ou errou, altera a pontuação e aleatoriza de novo
+    for(let quadrado of quadrados) {
+        quadrado.addEventListener("click", function() {
+            if (resposta === quadrado.style.backgroundColor) {
+                // aumentar a pontuação
+                aleatorizaCores();
+            } else {
+                // diminuir a pontuação
+                aleatorizaCores();
+            }
+        })
     }
 
-    
+
 }
 
+function aleatorizaCores() {
+        
+    // aleatoriza as cores
+    let cores = ["green", 
+                "red", 
+                "blue", 
+                "magenta", 
+                "yellow", 
+                "purple", 
+                "cyan", 
+                "orange", 
+                "black",];
+    let possivelResposta = [];
+    let quadradoAtual;
+
+    // aleatoriza as cores
+    cores.sort(function(a, b) {return 0.5 - Math.random()})
+
+    
+
+    // itera pelos quadrados, atribuindo cores a eles e salvando essas cores no vetor de resposta
+    for (let i = 1; i < 10; i++) {
+        quadradoAtual = document.getElementById("quadrado" + i);
+        corAleatoria = Math.round(Math.random() * 8);
+        quadradoAtual.style.backgroundColor = cores[corAleatoria];
+        possivelResposta.push(cores[corAleatoria]);
+
+    }
+
+    resposta = possivelResposta[Math.round(Math.random() * 8)];
+
+    // altera a cor atual no HTML baseado na resposta
+    switch (resposta) {
+        case "green":
+            corAtual.innerHTML = "Verde";
+            corAtual.style.color = "green";
+            break;
+
+        case "red":
+            corAtual.innerHTML = "Vermelho";
+            corAtual.style.color = "red";
+            break;
+
+        case "blue":
+            corAtual.innerHTML = "Azul";
+            corAtual.style.color = "blue";
+            break;
+
+        case "magenta":
+            corAtual.innerHTML = "Magenta";
+            corAtual.style.color = "magenta";
+            break;
+
+        case "yellow":
+            corAtual.innerHTML = "Amarelo";
+            corAtual.style.color = "yellow";
+            break;
+
+        case "purple":
+            corAtual.innerHTML = "Roxo";
+            corAtual.style.color = "purple";
+            break;
+
+        case "cyan":
+            corAtual.innerHTML = "Ciano";
+            corAtual.style.color = "cyan";
+            break;
+
+        case "orange":
+            corAtual.innerHTML = "Laranja";
+            corAtual.style.color = "orange";
+            break;
+
+        case "black":
+            corAtual.innerHTML = "Preto";
+            corAtual.style.color = "black";
+            break;      
+    }
+}
+
+
+// trocar isso tudo depois
 function placar() {
     window.alert("Carlos\n\n 1º Lugar\n\"O mais brabo\""); // Não vai dar certo fazer isso :/
 }
 
 //fazer a logo girar ao clicar
 function rodar() {
-    let logo = document.querySelector(".logo");
+    let logo = document.getElementById("logo");
 
     //aiciona a classe de rotação
     logo.classList.add("rotacao");
@@ -88,16 +135,4 @@ function rodar() {
     logo.addEventListener("animationend", () => {
         logo.classList.remove("rotacao");
     }, {once: true}); // pra rodar o eventListener só uma vez
-}
-
-// Função pra checar se o usuário clicou no quadrado certo, 
-// somando ou debitando em sua pontuação total
-function checaJogada(pontuacao) {
-
-
-    return pontuacao;
-}
-
-function aleatorizaCor() {
-    
 }

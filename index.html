@@ -9,35 +9,35 @@
 </head>
 <body>
     <header>
-        <img class="logo" src="/images/favicon.ico" onclick="rodar()" alt="Logo do site - círculo com todas as cores">
+        <img id="logo" src="/images/favicon.ico" onclick="rodar()" alt="Logo do site - círculo com todas as cores">
         <h1>Desafio das Cores</h1> 
     </header>
     <hr>
-    <div class="conteudo">
-        <div class="informacao-jogo">
-            <div class="pontuacao"><p><strong>Pontuação:</strong></p></div>
-            <div class="tempo-restante"><p><strong>Tempo restante:</strong></p></div>
+    <div id="conteudo">
+        <div id="informacao-jogo">
+            <div id="pontuacao"><p><strong>Pontuação:</strong></p></div>
+            <div id="tempo-restante"><p><strong>Tempo restante:</strong></p></div>
             <br>
-            <div class="cor-atual"><strong>----------------</strong></div>
+            <div><strong>Cor atual: <span id="cor-atual">-----</span></strong></div>
             <br>
             <hr>
             <br>
         </div>
-        <div class="grade-quadrados">
-            <div class="quadrado-jogo quadrado1" alt="quadrado colorido"></div>
-            <div class="quadrado-jogo quadrado2" alt="quadrado colorido"></div>
-            <div class="quadrado-jogo quadrado3" alt="quadrado colorido"></div>
-            <div class="quadrado-jogo quadrado4" alt="quadrado colorido"></div>
-            <div class="quadrado-jogo quadrado5" alt="quadrado colorido"></div>
-            <div class="quadrado-jogo quadrado6" alt="quadrado colorido"></div>
-            <div class="quadrado-jogo quadrado7" alt="quadrado colorido"></div>
-            <div class="quadrado-jogo quadrado8" alt="quadrado colorido"></div>
-            <div class="quadrado-jogo quadrado9" alt="quadrado colorido"></div>
+        <div id="grade-quadrados">
+            <div class="quadrado-jogo" id="quadrado1" alt="quadrado colorido"></div>
+            <div class="quadrado-jogo" id="quadrado2" alt="quadrado colorido"></div>
+            <div class="quadrado-jogo" id="quadrado3" alt="quadrado colorido"></div>
+            <div class="quadrado-jogo" id="quadrado4" alt="quadrado colorido"></div>
+            <div class="quadrado-jogo" id="quadrado5" alt="quadrado colorido"></div>
+            <div class="quadrado-jogo" id="quadrado6" alt="quadrado colorido"></div>
+            <div class="quadrado-jogo" id="quadrado7" alt="quadrado colorido"></div>
+            <div class="quadrado-jogo" id="quadrado8" alt="quadrado colorido"></div>
+            <div class="quadrado-jogo" id="quadrado9" alt="quadrado colorido"></div>
         </div>
         <br>
-        <div class="botao-jogar"><button onclick="jogar()">Jogar</button></div>
+        <div id="botao-jogar"><button onclick="jogar()">Jogar</button></div>
         <br>
-        <div class="botao-placar"><button onclick="placar()">Placar de líderes</button></div>
+        <div id="botao-placar"><button onclick="placar()">Placar de líderes</button></div>
     </div>
 
 
